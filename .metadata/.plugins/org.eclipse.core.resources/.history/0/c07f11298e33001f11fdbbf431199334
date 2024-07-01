@@ -1,0 +1,61 @@
+package algorithm;
+
+import java.util.Random;
+
+public class MergeSort {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Random rand = new Random();
+		int [] numbers = new int[10];
+		for(int i=0; i<numbers.length; i++) {
+			numbers[i] = rand.nextInt(100);
+		}
+		System.out.println("Before :");
+		printArray(numbers);
+		mergeSort(numbers);
+		printArray(numbers);
+	}
+	
+	public static void mergeSort(int[] inputArray) {
+		int inputlength = inputArray.length;
+		
+		if(inputlength<2) {
+			return;
+		}
+		
+		int midIndex = inputlength/2;
+		int [] leftHalf = new int[midIndex];
+		int [] rightHalf = new int [inputlength-midIndex];
+		
+		
+		for(int i= 0; i<midIndex; i++) {
+			leftHalf[i]  = inputArray[i];
+		}
+		
+		for(int i=midIndex; i<inputlength; i++) {
+			rightHalf[i-midIndex] = inputArray[i];
+		}
+		
+		mergeSort(leftHalf);
+		mergeSort(rightHalf);
+		merge(inputArray,leftHalf,rightHalf);
+	}
+	
+	private static void merge(int[] inputArray, int[] leftHalf, int[] rightHalf) {
+		int leftSize = leftHalf.length;
+		int rightSize = rightHalf.length;
+		
+		int i=0,j=0,k=0;
+		
+		while(i<leftSize && j<rightSize) {
+			if(leftHalf[i]<rightHalf[j]) {
+				inputArray[k] = rightHalf[i];
+				i++;
+			}else {
+				inputArray[k] = rightHalf[j];
+			}
+		}
+	}
+
+}
